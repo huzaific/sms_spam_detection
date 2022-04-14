@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart' as FC;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sms_spam_detection/presentation/MatColor.dart';
 import 'package:sms_spam_detection/screens/About.dart';
@@ -13,6 +14,8 @@ import 'package:sms_spam_detection/screens/Test.dart';
 import 'package:sms_spam_detection/screens/select_contacts.dart';
 import 'package:sms_spam_detection/sms/contacts.dart';
 import 'package:sms_spam_detection/sms/sms_service.dart';
+import 'package:sms_spam_detection/utils/Apicalls.dart';
+import 'package:sms_spam_detection/utils/contacts.dart';
 import 'package:sms_spam_detection/widgets/DrawerItem.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -82,11 +85,14 @@ class _HomeState extends State<HomeScreen> {
     });
 
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        threadId.toString(), 'sms_spam', channelDescription: 'Spam Sms detection',
-        importance: Importance.max, priority: Priority.high);
+        threadId.toString(), 'sms_spam',
+        channelDescription: 'Spam Sms detection',
+        importance: Importance.max,
+        priority: Priority.high);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
-        android: androidPlatformChannelSpecifics, iOS: iOSPlatformChannelSpecifics);
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
       threadId,
       head,
@@ -108,13 +114,15 @@ class _HomeState extends State<HomeScreen> {
     }
 
     var initializationSettingsAndroid =
-    new AndroidInitializationSettings('app_icon');
+        new AndroidInitializationSettings('app_icon');
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onNotificationSelected);
+
+    syncContacts();
   }
 
   Future<void> onNotificationSelected(String payload) async {
@@ -192,7 +200,8 @@ class _HomeState extends State<HomeScreen> {
         child: new Column(
           children: <Widget>[
             new UserAccountsDrawerHeader(
-                currentAccountPicture: Image.asset('assets/images/app_icon.png'),
+                currentAccountPicture:
+                    Image.asset('assets/images/app_icon.png'),
                 accountName: new Text("SMS Spam Detection"),
                 accountEmail: null),
             new Column(children: drawerOptions)
