@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Spam SMS Detection',
+      title: 'Spam Blocker Pro',
       theme: kDefaultTheme,
       home: Splashscreen(),
       routes: {

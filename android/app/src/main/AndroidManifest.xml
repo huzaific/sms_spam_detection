@@ -16,7 +16,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="sms_spam_detection"
+        android:label="Spam Blocker Pro"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
