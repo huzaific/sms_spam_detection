@@ -1,4 +1,4 @@
-package tech.mr0kaushik.sms_spam_detection;
+package bawlio.smsblockerpro.app;
 
 
 import android.content.res.AssetFileDescriptor;

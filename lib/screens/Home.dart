@@ -15,6 +15,7 @@ import 'package:sms_spam_detection/screens/select_contacts.dart';
 import 'package:sms_spam_detection/sms/contacts.dart';
 import 'package:sms_spam_detection/sms/sms_service.dart';
 import 'package:sms_spam_detection/utils/Apicalls.dart';
+import 'package:sms_spam_detection/utils/SharedPrefrences.dart';
 import 'package:sms_spam_detection/utils/contacts.dart';
 import 'package:sms_spam_detection/widgets/DrawerItem.dart';
 
@@ -35,6 +36,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeState extends State<HomeScreen> {
   int _selectedDrawerIndex = 0;
   bool isVisible = true;
+
+  var user;
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
@@ -181,6 +184,12 @@ class _HomeState extends State<HomeScreen> {
     );
   }
 
+  _onLogout() async {
+    await SharedPref.setIsUserLoggedIn(false);
+    await SharedPref.removeUser();
+    Navigator.of(context).pushNamedAndRemoveUntil('/onboard', (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     var drawerOptions = <Widget>[];
@@ -194,6 +203,13 @@ class _HomeState extends State<HomeScreen> {
       ));
     }
 
+    drawerOptions.add(new ListTile(
+      leading: new Icon(Icons.logout_outlined),
+      title: new Text('Logout'),
+      selected: _selectedDrawerIndex == drawerOptions.length - 1,
+      onTap: _onLogout,
+    ));
+
     return new Scaffold(
       appBar: _getAppBar(context),
       drawer: new Drawer(
@@ -202,7 +218,7 @@ class _HomeState extends State<HomeScreen> {
             new UserAccountsDrawerHeader(
                 currentAccountPicture:
                     Image.asset('assets/images/app_icon.png'),
-                accountName: new Text("SMS Spam Detection"),
+                accountName: new Text('SMS Blocker Pro'),
                 accountEmail: null),
             new Column(children: drawerOptions)
           ],

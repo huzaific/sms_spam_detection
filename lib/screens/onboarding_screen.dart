@@ -34,7 +34,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 //    final Permission permission = permissions[_currentPage];
 
     if (_isAllAllowed) {
-      Navigator.of(context).pushReplacementNamed('/import');
+      // Navigator.of(context).pushReplacementNamed('/import');
+      SharedPref.setOnBoardedGone(true);
+      Navigator.of(context).pushReplacementNamed('/login');
       return;
     }
 
@@ -111,10 +113,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void isAlreadyImported() async {
-    bool value = await SharedPref.isMessageImported();
-    if (value) {
-      Navigator.of(context).pushReplacementNamed('/home');
-    }
+  
   }
 
   List<Widget> _buildPageIndicator() {

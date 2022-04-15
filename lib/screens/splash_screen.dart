@@ -21,18 +21,24 @@ class _SplashscreenState extends State<Splashscreen> {
   bool hasCalled = false;
 
   void getNextScreen() async {
-    bool value = await SharedPref.isMessageImported();
-    if (value) {
-      route = '/home';
+    bool isMessageImported = await SharedPref.isMessageImported();
+    bool isOnboardGone = await SharedPref.isOnBoardedGone();
+    bool isUserLoggedIn = await SharedPref.isUserLoggedIn();
+
+    // if (!isOnboardGone) {
+    //   route = '/onboard';
+    //   Navigator.of(context).pushReplacementNamed(route);
+    //   return;
+    // }
+
+    if (!isUserLoggedIn) {
+      route = '/onboard';
       Navigator.of(context).pushReplacementNamed(route);
       return;
     }
-//    value = await SharedPref.isOnBoardedGone();
-//    if (value) {
-    route = '/onboard';
+
+    route = '/import';
     Navigator.of(context).pushReplacementNamed(route);
-//      return;
-//    } else {
   }
 
   @override

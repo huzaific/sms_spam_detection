@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sms_spam_detection/presentation/MatColor.dart';
 import 'package:sms_spam_detection/screens/ImportScreen.dart';
+import 'package:sms_spam_detection/screens/loginScreen.dart';
 import 'package:sms_spam_detection/screens/onboarding_screen.dart';
 import 'package:sms_spam_detection/screens/splash_screen.dart';
 
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         '/import': (context) => ImportedScreen(),
         '/onboard': (context) => OnboardingScreen(),
         '/home': (context) => HomeScreen(),
+        '/login':(context) => LoginScreen()
       },
     );
   }
