@@ -218,7 +218,7 @@ class _HomeState extends State<HomeScreen> {
             new UserAccountsDrawerHeader(
                 currentAccountPicture:
                     Image.asset('assets/images/app_icon.png'),
-                accountName: new Text('SMS Blocker Pro'),
+                accountName: new Text('Spam Blocker Pro'),
                 accountEmail: null),
             new Column(children: drawerOptions)
           ],
