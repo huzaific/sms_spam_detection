@@ -11,7 +11,7 @@ description: A Spam SMS Detection app
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0
+version: 2.0.0
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -38,6 +38,7 @@ dependencies:
   permission_handler: ^8.1.6
   flutter_contacts: ^1.1.3
   http: ^0.13.4
+  device_info_plus: ^3.2.3
 
   #  flutter_launcher_icons: ^0.7.4
 

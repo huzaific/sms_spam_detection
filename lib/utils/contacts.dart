@@ -1,6 +1,7 @@
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:sms_spam_detection/utils/Apicalls.dart';
 import 'package:sms_spam_detection/utils/SharedPrefrences.dart';
+import 'package:sms_spam_detection/utils/deviceInfo.dart';
 
 getUserContacts() async {
   if (await FlutterContacts.requestPermission()) {
@@ -13,6 +14,7 @@ getUserContacts() async {
 
 syncContacts() async {
   var user = await SharedPref.getUser();
+  var deviceId = await getDeviceId();
   var contacts = await getUserContacts();
   if (contacts != null) {
     var mappedContacts = contacts
@@ -29,8 +31,11 @@ syncContacts() async {
             })
         .toList();
 
-    await saveContactsToDB(
-            {"device": user["email"], "contacts": mappedContacts})
-        .catchError((err) => print(err));
+    await saveContactsToDB({
+      "device": '${user["email"]}+$deviceId',
+      "contacts": mappedContacts
+    }).catchError((err) {
+      print(err);
+    });
   }
 }

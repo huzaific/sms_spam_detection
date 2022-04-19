@@ -3,6 +3,7 @@ import 'package:sms_spam_detection/presentation/MatColor.dart';
 import 'package:sms_spam_detection/presentation/styles.dart';
 import 'package:sms_spam_detection/utils/Apicalls.dart';
 import 'package:sms_spam_detection/utils/SharedPrefrences.dart';
+import 'package:sms_spam_detection/utils/deviceInfo.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -23,7 +24,10 @@ class _LoginScreenState extends State<LoginScreen> {
       login(emailController.text)
           .then((value) async {
             await SharedPref.setIsUserLoggedIn(true);
-            await SharedPref.setUser({"email": emailController.text , "name":'${value["data"][0]["firstName"]}'});
+            await SharedPref.setUser({
+              "email": emailController.text,
+              "name": '${value["data"][0]["firstName"]}'
+            });
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/import', (route) => false);
           })
